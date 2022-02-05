@@ -1,0 +1,29 @@
+[
+  {
+    "model": "userapp.user",
+    "fields": {
+      "username": "User1",
+      "email": "User1@mail.ru",
+      "first_name": "User1",
+      "last_name": "User1"
+    }
+  },
+  {
+    "model": "userapp.user",
+    "fields": {
+      "username": "User2",
+      "email": "User2@mail.ru",
+      "first_name": "User2",
+      "last_name": "User2"
+    }
+  },
+  {
+    "model": "userapp.user",
+    "fields": {
+      "username": "User3",
+      "email": "User3@mail.ru",
+      "first_name": "User3",
+      "last_name": "User3"
+    }
+  }
+]
