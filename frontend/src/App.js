@@ -2,8 +2,10 @@ import React from 'react';
 import axios from 'axios'
 import logo from './logo.svg';
 import './App.css';
+import Menu from "./components/Menu.js";
 import UserList from "./components/User.js";
-
+import Footer from "./components/Footer.js";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 class App extends React.Component {
 
@@ -15,28 +17,8 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        // const users = [
-        //     {
-        //         'username': 'Фёдор',
-        //         'first_name': 'Фёдор',
-        //         'last_name': 'Достоевский',
-        //         'email': 1821
-        //     },
-        //     {
-        //         'username': 'Александр',
-        //         'first_name': 'Александр',
-        //         'last_name': 'Грин',
-        //         'email': 1880
-        //     },
-        // ]
-        // this.setState(
-        //     {
-        //         'users': users
-        //     }
-        // )
 
-
-         axios.get('http://127.0.0.1:8000/api/users/').then(response => {
+        axios.get('http://127.0.0.1:8000/api/users/').then(response => {
             // const authors = response.data
             this.setState({
                 'users': response.data
@@ -48,8 +30,12 @@ class App extends React.Component {
     render() {
         return (
             <div>
+                <Menu/>
                 <UserList users={this.state.users}/>
+                <Footer/>
             </div>
+
+
         )
     }
 }
