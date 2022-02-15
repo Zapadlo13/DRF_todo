@@ -1,42 +1,33 @@
 import React from 'react'
+import UserList from "./User";
 
-
-const Menu = () => {
+function NavbarItem({name, href}) {
     return (
-
-        <body>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-            <a href="#" className="navbar-brand">
-                {/*<img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" width="30" height="30" alt="logo">*/}
-            </a>
-            <a href="#" className="navbar-brand">
-                {/*<img src="https://nuxtjs.org/logos/nuxt-square-white.svg" width="30" height="30" alt="logo">*/}
-            </a>
-            <button className="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav mr-auto">
-                    <li className="nav-item active">
-                        <a href="#" className="nav-link">Главная</a>
-                    </li>
-                    <li className="nav-item ">
-                        <a href="#" className="nav-link">Пользователи</a>
-                    </li>
-                </ul>
-
-                <a href="#" className="btn btn-outline-light mr-2">Вход</a>
-                <a href="#" className="btn btn-outline-light mr-2">Регистрация</a>
-                <a href="#" className="btn btn-outline-light">Выход</a>
-            </div>
-        </nav>
-        <script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-                integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-                crossOrigin="anonymous"></script>
-        </body>
+        <li className="nav-item active">
+          <a className="nav-link" to={href}>{name}</a>
+        </li>
     )
 }
 
-export default Menu
+
+export default function Navbar({navbarItems}) {
+    return (
+        <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a className="navbar-brand" href="#">GeekBrains</a>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarCollapse">
+              <ul className="navbar-nav mr-auto">
+                <li className="nav-item active">
+                  {navbarItems.map((item) => <NavbarItem name={item.name} href={item.href} />)}
+                </li>
+              </ul>
+              <form className="form-inline mt-2 mt-md-0">
+                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form>
+            </div>
+          </nav>
+    )
+}
