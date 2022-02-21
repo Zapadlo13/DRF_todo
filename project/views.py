@@ -14,9 +14,9 @@ class ProjectPageNumberPagination(PageNumberPagination):
 
 
 class ProjectModelViewSet(ModelViewSet):
-    queryset = Project.objects.all()
+    queryset = Project.objects.select_related().all()
     serializer_class = ProjectModelSerializer
-    pagination_class = ProjectPageNumberPagination
+    #pagination_class = ProjectPageNumberPagination
 
     def get_queryset(self):
         queryset = Project.objects.all()
@@ -36,8 +36,8 @@ class ToDoPageNumberPagination(PageNumberPagination):
 class ToDoModelViewSet(ModelViewSet):
     queryset = ToDo.objects.all()
     serializer_class = ToDoModelSerializer
-    pagination_class = ToDoPageNumberPagination
-    filterset_class = TodoFilter
+    #pagination_class = ToDoPageNumberPagination
+    #filterset_class = TodoFilter
 
 
     def destroy(self, request, *args, **kwargs):
