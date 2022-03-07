@@ -10,7 +10,19 @@ function NavbarItem({name, href}) {
 }
 
 
-export default function Navbar({navbarItems}) {
+export default function Navbar({navbarItems, token, logout}) {
+
+    let login_button = ''
+    console.log(token)
+
+    if ((token != "") & (token != null)) {
+        login_button = <a className="nav-link" onClick={logout}>Выйти
+            <i className="fas fa-sign-in-alt"></i></a>
+
+    } else {
+        login_button = <a className="nav-link" href="/login">Войти
+            <i className="fas fa-sign-in-alt"></i></a>
+    }
     return (
         <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <a className="navbar-brand" href="#">GeekBrains</a>
@@ -22,10 +34,13 @@ export default function Navbar({navbarItems}) {
                 <ul className="navbar-nav mr-auto">
                     {navbarItems.map((item) => <NavbarItem name={item.name} href={item.href}/>)}
                 </ul>
-                <form className="form-inline mt-2 mt-md-0">
-                    <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
-                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                <div className="collapse navbar-collapse" id="navbarResponsive">
+                    <ul className="navbar-nav ml-auto">
+                        <li className="nav-item">
+                            {login_button}
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     )
