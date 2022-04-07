@@ -25,6 +25,13 @@ class ProjectModelViewSet(ModelViewSet):
             queryset = queryset.filter(name__contains=name)
         return queryset
 
+    # def destroy(self, request, *args, **kwargs):
+    #
+    #     instance = self.get_object()
+    #     instance.name = 'y'+instance.name
+    #     instance.save()
+
+
 
 # модельToDo: доступны все варианты запросов; при удалении не удалятьToDo, а выставлять признак, что оно закрыто; добавить фильтрацию по проекту; для постраничного вывода установить размер страницы 20.
 

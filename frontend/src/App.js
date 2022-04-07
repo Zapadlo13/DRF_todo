@@ -13,6 +13,8 @@ import NotFound404 from "./components/NotFound404.js";
 import Cookies from "universal-cookie";
 import LoginForm from './components/Auth.js'
 import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
+import ProjectForm from "./components/ProjectForm.js";
+import ToDoForm from "./components/ToDoForm.js";
 
 const DOMAIN = 'http://127.0.0.1:8000/api/'
 const get_url = (url) => `${DOMAIN}${url}`
@@ -36,6 +38,69 @@ class App extends React.Component {
 
     }
 
+
+    createProject(name, repository, user) {
+
+        const headers = this.get_headers()
+        const data = {name: name, repository: repository, users: user}
+        axios.post(DOMAIN + 'projects/', data, {headers}).then(
+            response => {
+
+                this.load_data()
+            }
+        ).catch(error => {
+            console.log(error)
+            this.setState({projects: []})
+        })
+
+    }
+
+    deleteProject(id) {
+        const headers = this.get_headers()
+        axios.delete(DOMAIN + `projects/${id}`, {headers}).then(
+            response => {
+                this.load_data()
+
+            }
+        ).catch(error => {
+            console.log(error)
+            this.setState({projects: []})
+        })
+    }
+
+    deleteToDo(id) {
+        const headers = this.get_headers()
+        axios.delete(DOMAIN + `todos/${id}`, {headers}).then(
+            response => {
+                this.load_data()
+
+            }
+        ).catch(error => {
+            console.log(error)
+            this.setState({todos: []})
+        })
+    }
+
+    createTodo(project, text, creator) {
+
+        const headers = this.get_headers()
+
+        console.log('project:' + project)
+        console.log('creator:' + creator)
+        console.log('text:' + text)
+
+        const data = {project: project, text: text, creator: creator}
+        axios.post(DOMAIN + 'todos/', data, {headers}).then(
+            response => {
+
+                this.load_data()
+            }
+        ).catch(error => {
+            console.log(error)
+            this.setState({todos: []})
+        })
+
+    }
 
     logout() {
         this.set_token('')
@@ -137,9 +202,17 @@ class App extends React.Component {
                         <Switch>
 
                             <Route exact path='/' component={() => <UserList users={this.state.users}/>}/>
+                            <Route exact path='/projects/create' component={() => <ProjectForm users={this.state.users}
+                                                                                               createProject={(name, repository, user) => this.createProject(name, repository, user)}/>}/>
                             <Route exact path='/projects'
-                                   component={() => <ProjectList projects={this.state.projects}/>}/>
-                            <Route exact path='/todos' component={() => <TodoList todos={this.state.todos}/>}/>
+                                   component={() => <ProjectList projects={this.state.projects}
+                                                                 deleteProject={(id) => this.deleteProject(id)}/>}/>
+                            <Route exact path='/todos/create' component={() => <ToDoForm users={this.state.users}
+                                                                                         projects={this.state.projects}
+                                                                                         createTodo={(project, text, creator) => this.createTodo(project, text, creator)}/>}/>
+                            <Route exact path='/todos' component={() => <TodoList todos={this.state.todos}
+                                                                                  deleteToDo={(id) => this.deleteToDo(id)}
+                            />}/>
                             <Route exact path='/login' component={() => <LoginForm
                                 get_token={(username, password) => this.get_token(username, password)}/>}/>
 
