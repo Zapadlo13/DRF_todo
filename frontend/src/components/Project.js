@@ -1,8 +1,9 @@
 import React from 'react'
 import {Link, useParams} from 'react-router-dom'
 
-const ProjectItem = ({project}) => {
+const ProjectItem = ({project, deleteProject}) => {
     return (
+        <tbody>
         <tr scope="row">
             <td>
                 <Link to={`/projects/${project.id}`}>    {project.name} </Link>
@@ -13,33 +14,44 @@ const ProjectItem = ({project}) => {
             <td>
                 {project.users}
             </td>
-
+            <td>
+                <button className="btn btn-danger btn-block" type='button'
+                        onClick={() => deleteProject(project.id)}>Delete
+                </button>
+            </td>
         </tr>
+        </tbody>
     )
 }
 
-const ProjectList = ({projects}) => {
-    console.log(projects)
+const ProjectList = ({projects, deleteProject}) => {
+
     return (
-        <table class="table  table-bordered table-striped">
-            <thead>
-            <tr>
-                <th scope="col">
-                    Name
-                </th>
-                <th scope="col">
-                    Repository
-                </th>
-                <th scope="col">
-                    Users
-                </th>
+        <div>
+            <table className="table  table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">
+                        Name
+                    </th>
+                    <th scope="col">
+                        Repository
+                    </th>
+                    <th scope="col">
+                        Users
+                    </th>
+                    <th scope="col">
 
-            </tr>
-            </thead>
+                    </th>
+                </tr>
+                </thead>
 
-            {projects.map((project) => <ProjectItem project={project}/>)}
+                {projects.map((project) => <ProjectItem project={project} deleteProject={deleteProject}/>)}
 
-        </table>
+            </table>
+
+            <Link className="btn btn-success btn-block" to='/projects/create'>Create</Link>
+        </div>
     )
 }
 

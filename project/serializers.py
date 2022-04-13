@@ -1,4 +1,4 @@
-from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializer
+from rest_framework.serializers import  ModelSerializer
 from project.models import Project, ToDo
 
 
@@ -11,4 +11,4 @@ class ProjectModelSerializer(ModelSerializer):
 class ToDoModelSerializer(ModelSerializer):
     class Meta:
         model = ToDo
-        exclude = ('is_active',)
+        fields = ('__all__')

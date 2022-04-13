@@ -1,7 +1,8 @@
 import React from 'react'
+import {Link} from "react-router-dom";
 
 
-const ToDoItem = ({todo}) => {
+const ToDoItem = ({todo, deleteToDo}) => {
     return (
         <tr scope="row">
             <td>
@@ -19,37 +20,47 @@ const ToDoItem = ({todo}) => {
             <td>
                 {todo.creator}
             </td>
+            <td>
+                <button className="btn btn-danger btn-block" type='button'
+                        onClick={() => deleteToDo(todo.id)}>Delete
+                </button>
+            </td>
         </tr>
     )
 }
 
-const ToDoList = ({todos}) => {
+const ToDoList = ({todos, deleteToDo}) => {
     return (
-        <table class="table  table-bordered table-striped">
-            <thead>
-            <tr>
-                <th scope="col">
-                    Text
-                </th>
-                <th scope="col">
-                    Create
-                </th>
-                <th scope="col">
-                    Update
-                </th>
-                <th scope="col">
-                    Project
-                </th>
-                <th scope="col">
-                    Creator
-                </th>
+        <div>
+            <table class="table  table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">
+                        Text
+                    </th>
+                    <th scope="col">
+                        Create
+                    </th>
+                    <th scope="col">
+                        Update
+                    </th>
+                    <th scope="col">
+                        Project
+                    </th>
+                    <th scope="col">
+                        Creator
+                    </th>
+                    <th scope="col">
 
-            </tr>
-            </thead>
+                    </th>
+                </tr>
+                </thead>
 
-            {todos.map((todo) => <ToDoItem todo={todo}/>)}
+                {todos.map((todo) => <ToDoItem todo={todo} deleteToDo={deleteToDo}/>)}
 
-        </table>
+            </table>
+            <Link className="btn btn-success btn-block" to='/todos/create'>Create</Link>
+        </div>
     )
 }
 

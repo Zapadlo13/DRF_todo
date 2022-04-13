@@ -3,6 +3,7 @@ import React from 'react'
 
 const UserItem = ({user}) => {
     return (
+        <tbody>
         <tr scope="row">
             <td>
                 {user.username}
@@ -17,12 +18,13 @@ const UserItem = ({user}) => {
                 {user.email}
             </td>
         </tr>
+        </tbody>
     )
 }
 
 const UserList = ({users}) => {
     return (
-        <table class="table  table-bordered table-striped">
+        <table className="table  table-bordered table-striped">
             <thead>
             <tr>
                 <th scope="col">
